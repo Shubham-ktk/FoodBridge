@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}Available Food - FoodBridge{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <div class="dashboard-header">
+        <h1>Welcome, {{ current_user.name }}</h1>
+    </div>
+
+    <!-- Available Listings -->
+    <div class="listings-section">
+        <h2>Available Food Listings</h2>
+        <div class="listings-grid">
+            {% for listing in listings %}
+            <div class="listing-card" id="listing-{{ listing.id }}">
+                <h3>{{ listing.food_name }}</h3>
+                <div class="listing-info">
+                    <p>Quantity: {{ listing.quantity }}</p>
+                    <p>Available Until: {{ listing.expiry_time.strftime('%Y-%m-%d %H:%M') }}</p>
+                    <p>Status: {{ listing.pickup_status }}</p>
+                </div>
+                {% if listing.pickup_status == 'available' %}
+                <button class="btn btn-primary" onclick="showPickupForm('{{ listing.id }}')">Schedule Pickup</button>
+                {% endif %}
+            </div>
+            {% else %}
+            <p>No food listings available at the moment. Please check back later!</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Pickup Form Modal -->
+    <div id="pickup-form" class="modal" style="display: none;">
+        <div class="modal-content form-container">
+            <h2>Schedule Pickup</h2>
+            <form id="schedule-pickup-form" action="{{ url_for('schedule_pickup') }}" method="POST">
+                <input type="hidden" id="listing_id" name="listing_id">
+                
+                <div class="form-group">
+                    <label for="pickup_time">Pickup Time</label>
+                    <input type="datetime-local" id="pickup_time" name="pickup_time" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Schedule Pickup</button>
+                <button type="button" class="btn btn-secondary" onclick="document.getElementById('pickup-form').style.display='none'">Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1000;
+}
+
+.modal-content {
+    position: relative;
+    margin: 15% auto;
+    max-width: 500px;
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function showPickupForm(listingId) {
+    document.getElementById('listing_id').value = listingId;
+    
+    // Set minimum datetime for pickup_time to current time
+    const pickup_time = document.getElementById('pickup_time');
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    pickup_time.min = now.toISOString().slice(0, 16);
+    
+    document.getElementById('pickup-form').style.display = 'block';
+}
+
+// Initialize real-time updates
+document.addEventListener('DOMContentLoaded', () => {
+    setupListingUpdates();
+});
+</script>
+{% endblock %} 

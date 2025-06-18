@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+
+{% block title %}FoodBridge - Connecting Food Donors with Those in Need{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h1>Welcome to FoodBridge</h1>
+    <p class="hero-text">Connecting restaurants with surplus food to those who need it most.</p>
+    <div class="hero-buttons">
+        {% if not current_user.is_authenticated %}
+            <a href="{{ url_for('register') }}" class="btn btn-primary">Get Started</a>
+            <a href="{{ url_for('login') }}" class="btn btn-secondary">Login</a>
+        {% else %}
+            <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Go to Dashboard</a>
+        {% endif %}
+    </div>
+</div>
+
+<section class="features">
+    <h2>How It Works</h2>
+    <div class="features-grid">
+        <div class="feature-card">
+            <h3>For Restaurants</h3>
+            <p>List your surplus food items quickly and easily. Help reduce food waste while making a positive impact in your community.</p>
+            <ul>
+                <li>Easy food listing system</li>
+                <li>Real-time pickup scheduling</li>
+                <li>Track your contributions</li>
+            </ul>
+        </div>
+        
+        <div class="feature-card">
+            <h3>For NGOs & Charities</h3>
+            <p>Find available food donations in your area and schedule pickups efficiently.</p>
+            <ul>
+                <li>Real-time notifications</li>
+                <li>Location-based matching</li>
+                <li>Simple pickup scheduling</li>
+            </ul>
+        </div>
+        
+        <div class="feature-card">
+            <h3>For Individuals</h3>
+            <p>Connect with local food donors and access available food resources in your community.</p>
+            <ul>
+                <li>Find nearby food donations</li>
+                <li>Easy registration process</li>
+                <li>Instant notifications</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="impact">
+    <h2>Our Impact</h2>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3>Food Saved</h3>
+            <p class="stat-number">1,000+ kg</p>
+        </div>
+        <div class="stat-card">
+            <h3>People Helped</h3>
+            <p class="stat-number">500+</p>
+        </div>
+        <div class="stat-card">
+            <h3>Active Donors</h3>
+            <p class="stat-number">50+</p>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.hero {
+    text-align: center;
+    padding: 4rem 0;
+    background-color: var(--background-color);
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.hero-text {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.features {
+    padding: 4rem 0;
+}
+
+.features h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.feature-card {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.feature-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.feature-card ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 1rem;
+}
+
+.feature-card li {
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.feature-card li:before {
+    content: "✓";
+    color: var(--primary-color);
+    position: absolute;
+    left: 0;
+}
+
+.impact {
+    padding: 4rem 0;
+    background-color: white;
+}
+
+.impact h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .hero-text {
+        font-size: 1.1rem;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+{% endblock %} 

@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}Restaurant Dashboard - FoodBridge{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <div class="dashboard-header">
+        <h1>Welcome, {{ current_user.name }}</h1>
+        <button class="btn btn-primary" onclick="document.getElementById('create-listing-form').style.display='block'">Create New Listing</button>
+    </div>
+
+    <!-- Create Listing Form -->
+    <div id="create-listing-form" class="form-container" style="display: none;">
+        <h2>Create Food Listing</h2>
+        <form action="{{ url_for('create_listing') }}" method="POST">
+            <div class="form-group">
+                <label for="food_name">Food Item Name</label>
+                <input type="text" id="food_name" name="food_name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="quantity">Quantity</label>
+                <input type="text" id="quantity" name="quantity" placeholder="e.g., 5 kg, 10 portions" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="expiry_time">Available Until</label>
+                <input type="datetime-local" id="expiry_time" name="expiry_time" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Create Listing</button>
+            <button type="button" class="btn btn-secondary" onclick="document.getElementById('create-listing-form').style.display='none'">Cancel</button>
+        </form>
+    </div>
+
+    <!-- Listings -->
+    <div class="listings-section">
+        <h2>Your Food Listings</h2>
+        <div class="listings-grid">
+            {% for listing in listings %}
+            <div class="listing-card">
+                <h3>{{ listing.food_name }}</h3>
+                <div class="listing-info">
+                    <p>Quantity: {{ listing.quantity }}</p>
+                    <p>Available Until: {{ listing.expiry_time.strftime('%Y-%m-%d %H:%M') }}</p>
+                    <p>Status: {{ listing.pickup_status }}</p>
+                </div>
+                {% if listing.pickup_status == 'available' %}
+                <button class="btn btn-secondary" onclick="cancelListing('{{ listing.id }}')">Cancel Listing</button>
+                {% endif %}
+            </div>
+            {% else %}
+            <p>No listings yet. Create your first listing!</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Set minimum datetime for expiry_time to current time
+    const expiry_time = document.getElementById('expiry_time');
+    if (expiry_time) {
+        const now = new Date();
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+        expiry_time.min = now.toISOString().slice(0, 16);
+    }
+});
+
+function cancelListing(listingId) {
+    if (confirm('Are you sure you want to cancel this listing?')) {
+        // Add cancellation logic here
+    }
+}
+</script>
+{% endblock %} 
