@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Treasure Learn</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <div id="hud">
+      <div id="level-indicator">Level 1: Jungle Trail</div>
+      <div id="hint">WASD or Arrow Keys to move</div>
+    </div>
+
+    <div id="question-overlay" class="hidden" role="dialog" aria-modal="true">
+      <div class="modal">
+        <h2 id="question-title">Answer to Unlock</h2>
+        <div id="question-text"></div>
+        <div id="choices"></div>
+        <div id="feedback" aria-live="polite"></div>
+        <button id="submit" class="hidden">Submit</button>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+  </html>
+

@@ -1,0 +1,45 @@
+html, body { height: 100%; margin: 0; overflow: hidden; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
+canvas { display: block; }
+
+#hud {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+#hint { opacity: 0.85; font-size: 12px; }
+
+#question-overlay.hidden { display: none; }
+#question-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: grid;
+  place-items: center;
+  z-index: 1000;
+}
+.modal {
+  width: min(520px, 92vw);
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px 18px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.35);
+}
+.modal h2 { margin: 0 0 8px 0; }
+#question-text { margin-bottom: 12px; }
+#choices { display: grid; gap: 8px; margin-top: 8px; }
+#choices button {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  background: #f9fafb;
+  cursor: pointer;
+  text-align: left;
+}
+#choices button:hover { background: #eef2ff; border-color: #c7d2fe; }
+#feedback { margin-top: 10px; min-height: 20px; font-weight: 600; }
+
