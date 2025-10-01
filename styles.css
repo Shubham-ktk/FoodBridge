@@ -1,0 +1,109 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #0a0f0a;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+canvas {
+  display: block;
+}
+
+#hud {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 10;
+  display: flex;
+  gap: 12px;
+  color: #f0ffe5;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+  font-weight: 700;
+}
+
+#hint {
+  position: fixed;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 12px;
+  z-index: 10;
+  background: rgba(0,0,0,0.45);
+  color: #e8ffe0;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
+  backdrop-filter: blur(6px);
+}
+
+#interactPrompt {
+  position: fixed;
+  bottom: 64px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 14px;
+  z-index: 10;
+  background: rgba(34,139,34,0.8);
+  color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.3);
+}
+
+.hidden { display: none; }
+
+#questionModal {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(0,0,0,0.5);
+  z-index: 20;
+}
+
+.modal {
+  width: min(92vw, 560px);
+  border-radius: 14px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #193d2f 0%, #0e231a 100%);
+  color: #eafff3;
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+}
+
+.modal-header { padding: 16px 18px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.modal-body { padding: 16px 18px; }
+.modal-footer { padding: 12px 18px; display: flex; gap: 12px; justify-content: flex-end; }
+
+#questionText { font-size: 18px; margin-bottom: 12px; }
+
+#answerForm { display: grid; gap: 10px; margin-bottom: 8px; }
+
+.choice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.primary, .secondary {
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+.primary { background: #22c55e; color: #0b2017; }
+.primary:hover { background: #16a34a; }
+.secondary { background: rgba(255,255,255,0.1); color: #eafff3; }
+.secondary:hover { background: rgba(255,255,255,0.2); }
+
+.feedback { min-height: 20px; font-weight: 700; }
+.feedback.ok { color: #86efac; }
+.feedback.err { color: #fca5a5; }
+
